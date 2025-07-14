@@ -1,6 +1,6 @@
-package com.sa98077.sp_boot_board_prac.repository.search;
+package com.sa98077.sp_boot_board_reply_0714.repository.search;
 
-import com.sa98077.sp_boot_board_prac.domain.Board;
+import com.sa98077.sp_boot_board_reply_0714.domain.Board;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

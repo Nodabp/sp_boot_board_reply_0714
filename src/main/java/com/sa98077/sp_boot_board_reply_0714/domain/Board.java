@@ -1,4 +1,4 @@
-package com.sa98077.sp_boot_board_prac.domain;
+package com.sa98077.sp_boot_board_reply_0714.domain;
 
 
 import jakarta.persistence.*;
@@ -26,8 +26,9 @@ public class Board extends BaseEntity{
     @Column(length=50 , nullable=false)
     private String writer;
 
-    public void change(String title, String content){
+    public void change(String title, String content ,String writer){
         this.title = title;
         this.content = content;
+        this.writer = writer;
     }
 }

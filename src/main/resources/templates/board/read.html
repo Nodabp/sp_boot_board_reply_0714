@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>read</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Read
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Board List</h5>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Title</span>
+                        <input type="text" name="title" class="form-control" placeholder="Title" th:value="${dto.title}"
+                               readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Content</span>
+                        <textarea class="form-control col-sm-5" rows="5" name="content">[[${dto.content}]]</textarea>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Writer</span>
+                        <input type="text" name="writer" class="form-control" placeholder="Writer" th:value="${dto.writer}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">regDate</span>
+                        <input type="text" name="regDate" class="form-control" th:value="${#strings.substring(dto.regDate,0,10)}" readonly >
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">modDate</span>
+                        <input type="text" name="modDate" class="form-control" th:value="${#strings.substring(dto.modDate,0,10)}" readonly >
+                    </div>
+
+                    <div class="my-4">
+                        <div class="float-end">
+                            <a th:href="|@{/board/modify}${pageRequestDTO.link}&bno=${dto.bno}|" class="btn btn-primary">Modify</a>
+                            <a th:href="|@{/board/list}?${pageRequestDTO.link}|" class="btn btn-secondary">List</a>
+                        </div>
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card body -->
+        </div><!-- end card -->
+    </div><!-- end col -->
+</div><!-- end row -->
+
+<script layout:fragment="script" th:inline="javascript">
+
+</script>
+</body>
+</html>

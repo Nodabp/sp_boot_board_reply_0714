@@ -1,6 +1,6 @@
-package com.sa98077.sp_boot_board_prac.repository;
+package com.sa98077.sp_boot_board_reply_0714.repository;
 
-import com.sa98077.sp_boot_board_prac.domain.Board;
+import com.sa98077.sp_boot_board_reply_0714.domain.Board;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @Log4j2
 @SpringBootTest
@@ -46,10 +44,10 @@ class BoardRepositoryTest {
 
     @Test
     void update () {
-        Optional<Board> result = boardRepository.findById(100L);
+        Optional<Board> result = boardRepository.findById(111L);
         Board board = result.orElseThrow();
 
-        board.change("update title","update content");
+        board.change("update title","update content","update writer");
         boardRepository.save(board);
 
     }

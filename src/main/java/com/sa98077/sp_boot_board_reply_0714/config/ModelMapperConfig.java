@@ -1,4 +1,4 @@
-package com.sa98077.sp_boot_board_prac.config;
+package com.sa98077.sp_boot_board_reply_0714.config;
 
 
 import org.modelmapper.ModelMapper;

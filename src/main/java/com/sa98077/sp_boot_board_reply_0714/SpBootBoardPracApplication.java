@@ -1,4 +1,4 @@
-package com.sa98077.sp_boot_board_prac;
+package com.sa98077.sp_boot_board_reply_0714;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

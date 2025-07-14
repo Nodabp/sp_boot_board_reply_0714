@@ -1,4 +1,4 @@
-package com.sa98077.sp_boot_board_prac.dto;
+package com.sa98077.sp_boot_board_reply_0714.dto;
 
 import lombok.Builder;
 import lombok.Getter;

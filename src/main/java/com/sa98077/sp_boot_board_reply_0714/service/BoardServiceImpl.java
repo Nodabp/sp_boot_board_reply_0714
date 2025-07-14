@@ -1,10 +1,10 @@
-package com.sa98077.sp_boot_board_prac.service;
+package com.sa98077.sp_boot_board_reply_0714.service;
 
-import com.sa98077.sp_boot_board_prac.domain.Board;
-import com.sa98077.sp_boot_board_prac.dto.BoardDTO;
-import com.sa98077.sp_boot_board_prac.dto.PageRequestDTO;
-import com.sa98077.sp_boot_board_prac.dto.PageResponseDTO;
-import com.sa98077.sp_boot_board_prac.repository.BoardRepository;
+import com.sa98077.sp_boot_board_reply_0714.domain.Board;
+import com.sa98077.sp_boot_board_reply_0714.dto.BoardDTO;
+import com.sa98077.sp_boot_board_reply_0714.dto.PageRequestDTO;
+import com.sa98077.sp_boot_board_reply_0714.dto.PageResponseDTO;
+import com.sa98077.sp_boot_board_reply_0714.repository.BoardRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -13,10 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -42,7 +39,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void modify(BoardDTO boardDTO) {
         Board board = boardRepository.findById(boardDTO.getBno()).orElseThrow();
-        board.change(boardDTO.getTitle(), boardDTO.getContent());
+        board.change(boardDTO.getTitle(), boardDTO.getContent(), boardDTO.getWriter());
         boardRepository.save(board);
     }
 

@@ -1,14 +1,12 @@
-package com.sa98077.sp_boot_board_prac.service;
+package com.sa98077.sp_boot_board_reply_0714.service;
 
-import com.sa98077.sp_boot_board_prac.dto.BoardDTO;
-import com.sa98077.sp_boot_board_prac.dto.PageRequestDTO;
-import com.sa98077.sp_boot_board_prac.dto.PageResponseDTO;
+import com.sa98077.sp_boot_board_reply_0714.dto.BoardDTO;
+import com.sa98077.sp_boot_board_reply_0714.dto.PageRequestDTO;
+import com.sa98077.sp_boot_board_reply_0714.dto.PageResponseDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @Log4j2
 @SpringBootTest

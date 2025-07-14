@@ -1,9 +1,9 @@
-package com.sa98077.sp_boot_board_prac.repository.search;
+package com.sa98077.sp_boot_board_reply_0714.repository.search;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
-import com.sa98077.sp_boot_board_prac.domain.Board;
-import com.sa98077.sp_boot_board_prac.domain.QBoard;
+import com.sa98077.sp_boot_board_reply_0714.domain.Board;
+import com.sa98077.sp_boot_board_reply_0714.domain.QBoard;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

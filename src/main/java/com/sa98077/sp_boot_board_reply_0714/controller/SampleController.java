@@ -1,6 +1,5 @@
-package com.sa98077.sp_boot_board_prac.controller;
+package com.sa98077.sp_boot_board_reply_0714.controller;
 
-import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

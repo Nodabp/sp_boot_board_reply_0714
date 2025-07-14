@@ -55,7 +55,7 @@
 
                     <tr th:each="dto:${responseDTO.dtoList}">
                         <th scope="col">[[${dto.bno}]]</th>
-                        <td>[[${dto.title}]]</td>
+                        <td><a th:href="|@{/board/read}${pageRequestDTO.link}&bno=${dto.bno}|" class="text-decoration-none">[[${dto.title}]]</a></td>
                         <td>[[${dto.writer}]]</td>
                         <td>[[${#strings.substring(dto.regDate,0,10)}]]</td>
                     </tr>
@@ -97,28 +97,47 @@
             </div><!-- end card body -->
         </div><!-- end card -->
     </div><!-- end col -->
+    <!-- Modal -->
+    <div class="modal" id="myModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">BNO</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+<!--                    <button type="button" class="btn btn-primary">OK</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div><!-- end row -->
 
 <script layout:fragment="script" th:inline="javascript">
     console.log("************ list ************");
-
-    document.querySelector('.searchBtn').addEventListener('click', function (e) {
-
-    })
 
     document.querySelector('.clearBtn').addEventListener('click', function (e) {
         e.preventDefault();
         location.href = '/board/list';
     })
 
-    //show modal
+    document.addEventListener("DOMContentLoaded", function () {
+        const bno = [[${bno}]];
+        const modalElement = document.querySelector('#myModal');
 
-    const bno = [[${bno}]];
-    console.log(bno);
-    if(bno){
-        alert(bno)
-    }
-
+        if (bno && modalElement) {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+            modalElement.querySelector('.modal-body').innerText = bno;
+        } else {
+            console.warn("모달 요소가 없거나 bno 값이 없습니다.");
+        }
+    });
 </script>
 </body>
 </html>

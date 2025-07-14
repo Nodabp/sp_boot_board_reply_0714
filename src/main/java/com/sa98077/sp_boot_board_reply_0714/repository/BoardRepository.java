@@ -1,8 +1,8 @@
-package com.sa98077.sp_boot_board_prac.repository;
+package com.sa98077.sp_boot_board_reply_0714.repository;
 
 
-import com.sa98077.sp_boot_board_prac.domain.Board;
-import com.sa98077.sp_boot_board_prac.repository.search.BoardSearch;
+import com.sa98077.sp_boot_board_reply_0714.domain.Board;
+import com.sa98077.sp_boot_board_reply_0714.repository.search.BoardSearch;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BoardRepository extends JpaRepository<Board,Long>, BoardSearch { //Board 상속, id의 데이터 타입 지정.

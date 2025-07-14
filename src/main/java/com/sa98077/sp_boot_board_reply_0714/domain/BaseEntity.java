@@ -1,4 +1,4 @@
-package com.sa98077.sp_boot_board_prac.domain;
+package com.sa98077.sp_boot_board_reply_0714.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
