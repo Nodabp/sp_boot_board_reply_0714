@@ -93,7 +93,7 @@ public class BoardServiceImpl implements BoardService {
         PageResponseDTO<BoardDTO> pageResponseDTO = PageResponseDTO.<BoardDTO>withAll()
                 .pageRequestDTO(pageRequestDTO)
                 .dtoList(dtoList)
-                .total(result.getTotalPages()) // 전체 개수 기준으로 총 페이지 계산
+                .total((int) result.getTotalElements()) // 전체 개수 기준으로 총 페이지 계산
                 .build();
         return pageResponseDTO;
     }

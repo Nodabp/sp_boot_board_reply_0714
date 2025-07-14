@@ -67,8 +67,8 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                         booleanBuilder.or(board.writer.contains(keyword)); // w 가 있는지 검사 , 있으면 or 추가
                         break;
                 }
-                query.where(booleanBuilder);
             }
+            query.where(booleanBuilder);
         }
         query.where(board.bno.gt(0L)); // and( bno > 0 )
         this.getQuerydsl().applyPagination(pageable, query);// Pageable 처리

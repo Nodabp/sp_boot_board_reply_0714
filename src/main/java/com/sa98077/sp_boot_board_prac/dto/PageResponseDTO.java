@@ -18,7 +18,7 @@ public class PageResponseDTO<E> {
     private final int start;
 
     // 끝 페이지 번호
-    private final int end;
+    private int end;
 
     // 이전 페이지의 존재 여부
     private final boolean prev;
@@ -38,7 +38,7 @@ public class PageResponseDTO<E> {
         this.dtoList = dtoList;
         this.total = total;
 
-        // 기존 계산식 1부터 시작하는.
+//        // 기존 계산식 1부터 시작하는.
 //        this.end = (int) (Math.ceil(this.page / 10.0)) * 10; // ceil 올림.
 //        this.start = this.end - 9;
 //
@@ -60,26 +60,42 @@ public class PageResponseDTO<E> {
 //        this.next = this.end < last;
 
      // 중앙으로 오도록 하는 페이지 네이션.
+//
+//        int pageBlock = 10; // 한 번에 보여줄 페이지 번호 수
+//        int last = (int) Math.ceil((double) total / size); // 전체 페이지 수
+//
+//        // 중앙 정렬 계산
+//        int half = pageBlock / 2;
+//        int tempStart = Math.max(1, page - half); // 시작값을 현제값의 절반으로 반환. 1이 더 크다면 1 반환.
+//        int tempEnd = tempStart + pageBlock - 1; // 끝 값
+//
+//        // 끝 페이지가 전체 페이지 수를 넘지 않도록 조정
+//        if (tempEnd > last) {
+//            tempEnd = last;
+//            tempStart = Math.max(1, tempEnd - pageBlock + 1);
+//        }
+//
+//        this.start = tempStart;
+//        this.end = tempEnd;
+//
+//        this.prev = this.start > 1;
+//        this.next = this.end < last;
 
-        int pageBlock = 10; // 한 번에 보여줄 페이지 번호 수
-        int last = (int) Math.ceil((double) total / size); // 전체 페이지 수
+        int pageBlock = 10; // 표시할 페이지 번호 개수
+        int last = (int) Math.ceil((double) total / size);
 
-        // 중앙 정렬 계산
         int half = pageBlock / 2;
-        int tempStart = Math.max(1, page - half); // 시작값을 현제값의 절반으로 반환. 1이 더 크다면 1 반환.
-        int tempEnd = tempStart + pageBlock - 1; // 끝 값
+        int tempStart = Math.max(0, page - half);
+        int tempEnd = tempStart + pageBlock - 1;
 
-        // 끝 페이지가 전체 페이지 수를 넘지 않도록 조정
         if (tempEnd > last) {
             tempEnd = last;
-            tempStart = Math.max(1, tempEnd - pageBlock + 1);
+            tempStart = Math.max(0, tempEnd - pageBlock + 1);
         }
 
         this.start = tempStart;
         this.end = tempEnd;
-
         this.prev = this.start > 1;
         this.next = this.end < last;
-
     }
 }

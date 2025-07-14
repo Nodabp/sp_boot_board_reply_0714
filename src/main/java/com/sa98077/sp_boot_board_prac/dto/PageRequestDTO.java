@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 public class PageRequestDTO {
 
     @Builder.Default //빌더로 만들 때 기본값으로 사용하라~
-    private int page = 1;
+    private int page = 0;
 
     @Builder.Default
     private int size = 10;
@@ -44,7 +44,7 @@ public class PageRequestDTO {
         builder.append("?page=").append(this.page);
         builder.append("&size=").append(this.size);
 
-        if(type != null && type.isEmpty()) {
+        if(type != null && !type.isEmpty()) {
             builder.append("&types=").append(type);
         }
         if(keyword != null) {
