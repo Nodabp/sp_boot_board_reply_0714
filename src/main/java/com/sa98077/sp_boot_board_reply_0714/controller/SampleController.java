@@ -1,5 +1,6 @@
 package com.sa98077.sp_boot_board_reply_0714.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,12 +41,13 @@ public class SampleController {
                     '}';
         }
     }
-
+    @Operation(summary = "hello")
     @GetMapping("/hello")
     public void hello(Model model){
         log.info("hello");
         model.addAttribute("msg","Hello Spring Boot");
     }
+    @Operation(summary = "/ex/ex1")
     @GetMapping("/ex/ex1")
     public void ex1(Model model){
         log.info("ex1>>>>>>>>>>");

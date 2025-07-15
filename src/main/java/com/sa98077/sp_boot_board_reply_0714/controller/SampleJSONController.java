@@ -10,7 +10,7 @@ public class SampleJSONController {
 
     @GetMapping("helloArr")
     public String[] helloArr(){
-        log.info("helloArr");
+        log.info("api/helloArr");
         return new String[]{"AAA","BBB","CCC","JSON","HAHA"};
     }
 }

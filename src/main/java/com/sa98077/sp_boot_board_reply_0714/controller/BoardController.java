@@ -5,6 +5,7 @@ import com.sa98077.sp_boot_board_reply_0714.dto.BoardDTO;
 import com.sa98077.sp_boot_board_reply_0714.dto.PageRequestDTO;
 import com.sa98077.sp_boot_board_reply_0714.dto.PageResponseDTO;
 import com.sa98077.sp_boot_board_reply_0714.service.BoardService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
