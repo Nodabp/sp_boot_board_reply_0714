@@ -19,7 +19,7 @@ public class Reply extends BaseEntity{
     private Long rno;
 
 //    private Long bno; fk 처리해야됨 -> board 의 bno
-    @ManyToOne(fetch = FetchType.LAZY)// 다 대일 패치 명시. , lazy 를 통한 지연 로딩.
+    @ManyToOne(fetch = FetchType.LAZY)// 다 대일 패치 명시. , lazy 를 통한 지연 로딩. 즉시로딩시 FetchType.EAGER 옵션 사용
     private Board board;
 
     private String replyText;

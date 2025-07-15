@@ -29,7 +29,6 @@ public class BoardController {
                      Model model) {
         log.info("************** list *************");
 
-
         PageResponseDTO<BoardDTO> pageResponseDTO = boardService.getList(pageRequestDTO);
 
         log.info("pageResponseDTO : {}", pageResponseDTO);
