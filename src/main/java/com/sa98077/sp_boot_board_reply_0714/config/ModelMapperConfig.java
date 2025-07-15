@@ -13,9 +13,10 @@ public class ModelMapperConfig {
     public ModelMapper getModelMapper() {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration()
-                .setSkipNullEnabled(true)
+//                .setSkipNullEnabled(true) // 널 받을지.
                 .setFieldAccessLevel(AccessLevel.PRIVATE) // private 설정
-                .setMatchingStrategy(MatchingStrategies.STRICT) // 엄격 근엄 진지
+//                .setMatchingStrategy(MatchingStrategies.STRICT) // 엄격 근엄 진지
+                .setMatchingStrategy(MatchingStrategies.LOOSE) // 편하게 하기 루즈~
                 .setFieldMatchingEnabled(true);
         return modelMapper;
     }

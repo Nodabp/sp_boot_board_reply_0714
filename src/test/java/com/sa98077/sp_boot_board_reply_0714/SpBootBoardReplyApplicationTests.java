@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 @Log4j2
 @SpringBootTest
-class SpBootBoardPracApplicationTests {
+class SpBootBoardReplyApplicationTests {
     @Autowired
     private DataSource dataSource;
 
