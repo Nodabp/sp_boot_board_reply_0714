@@ -1,6 +1,7 @@
 package com.sa98077.sp_boot_board_reply_0714.service;
 
 import com.sa98077.sp_boot_board_reply_0714.dto.BoardDTO;
+import com.sa98077.sp_boot_board_reply_0714.dto.BoardListReplyCountDTO;
 import com.sa98077.sp_boot_board_reply_0714.dto.PageRequestDTO;
 import com.sa98077.sp_boot_board_reply_0714.dto.PageResponseDTO;
 
@@ -10,4 +11,7 @@ public interface BoardService {
     void modify(BoardDTO boardDTO);
     void remove(Long bno);
     PageResponseDTO<BoardDTO> getList(PageRequestDTO pageRequestDTO);
+
+    // 댓글의 숫자까지 처리
+    PageResponseDTO<BoardListReplyCountDTO> getListWithReplyCount(PageRequestDTO pageRequestDTO);
 }

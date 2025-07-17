@@ -38,8 +38,6 @@
                         <div class="my-4">
                             <div class="float-end">
                                 <button type="submit" class="btn btn-primary btnModify">Modify</button>
-                                <!--                                <a th:href="|@{/board/remove}?bno=${dto.bno}|" class="btn btn-danger">Remove</a>-->
-                                <!--                                <a th:href="|@{/board/list}?${pageRequestDTO.link}|" class="btn btn-secondary">List</a>-->
                                 <button type="button" class="btn btn-secondary btnList">List</button>
                                 <button type="button" class="btn btn-danger btnRemove">Remove</button>
                             </div>
@@ -61,9 +59,9 @@
 
         let errorMsg = '';
 
-        if(errors){
-            for(let i=0; i<errors.length; i++){
-                errorMsg += `${errors[i].field}은(는) ${errors[i].defaultMessage }\n`
+        if (errors) {
+            for (let i = 0; i < errors.length; i++) {
+                errorMsg += `${errors[i].field}은(는) ${errors[i].defaultMessage}\n`
             }
             alert(errorMsg);
         }

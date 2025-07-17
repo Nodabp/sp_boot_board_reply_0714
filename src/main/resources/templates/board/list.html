@@ -9,122 +9,106 @@
 
 <body>
 <div layout:fragment="content">
-    <div class="row mt-3">
-        <form action="/board/list" method="get">
-            <div class="col">
-                <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <select class="form-select" name="type">
-                            <option value="">---</option>
-                            <option value="t" th:selected="${pageRequestDTO.type =='t'}">제목</option>
-                            <option value="c" th:selected="${pageRequestDTO.type =='c'}">내용</option>
-                            <option value="w" th:selected="${pageRequestDTO.type =='w'}">작성자</option>
-                            <option value="tc" th:selected="${pageRequestDTO.type =='tc'}">제목 내용</option>
-                            <option value="tcw" th:selected="${pageRequestDTO.type =='tcw'}">제목 내용 작성자</option>
-                        </select>
-                    </div>
-                    <input type="text" class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary searchBtn" type="submit">Search</button>
-                        <button class="btn btn-outline-secondary clearBtn" type="button">Clear</button>
+    <div class="container py-4">
+
+        <!-- Board Table -->
+        <div class="card shadow-sm">
+            <!-- Header -->
+            <div class="card-header bg-light fw-bold">Board List</div>
+
+            <!-- List -->
+            <div class="card-body">
+
+                <!-- 제목 라인 -->
+                <div class="d-flex fw-bold border-bottom pb-2 mb-3 text-muted small">
+                    <div class="col-1">Bno</div>
+                    <div class="col-6">Title</div>
+                    <div class="col-2">Writer</div>
+                    <div class="col-3">Reg Date</div>
+                </div>
+
+                <!-- 본문 리스트 -->
+                <div class="d-flex flex-column gap-3">
+                    <div class="d-flex align-items-center border-bottom pb-2" th:each="dto : ${responseDTO.dtoList}">
+                        <div class="col-1">[[${dto.bno}]]</div>
+                        <div class="col-6">
+                            <a th:href="|@{/board/read}${pageRequestDTO.link}&bno=${dto.bno}|" class="text-decoration-none fw-semibold">
+                                [[${dto.title}]]
+                            </a>
+                            <span class="badge bg-primary ms-1">[[${dto.replyCount}]]</span>
+                        </div>
+                        <div class="col-2">[[${dto.writer}]]</div>
+                        <div class="col-3">[[${#strings.substring(dto.regDate, 0, 10)}]]</div>
                     </div>
                 </div>
-            </div>
-        </form>
-    </div>
 
-    <div class="col">
-        <div class="card">
-            <div class="card-header">
-                Board List
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Board List</h5>
+                <!-- Search Form -->
+                <div class="mt-4 d-flex justify-content-end">
+                    <form action="/board/list" method="get" class="w-100" style="max-width: 500px;">
+                        <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
+                        <div class="input-group">
+                            <select class="form-select" name="type">
+                                <option value="">select</option>
+                                <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
+                                <option value="c" th:selected="${pageRequestDTO.type == 'c'}">내용</option>
+                                <option value="w" th:selected="${pageRequestDTO.type == 'w'}">작성자</option>
+                                <option value="tc" th:selected="${pageRequestDTO.type == 'tc'}">제목+내용</option>
+                                <option value="tcw" th:selected="${pageRequestDTO.type == 'tcw'}">전체</option>
+                            </select>
+                            <input type="text" class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}" placeholder="search...">
+                            <button class="btn btn-primary" type="submit">search</button>
+                            <button class="btn btn-outline-secondary" type="button">reset</button>
+                        </div>
+                    </form>
+                </div>
 
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Bno</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Writer</th>
-                        <th scope="col">RegDate</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr th:each="dto:${responseDTO.dtoList}">
-                        <th scope="col">[[${dto.bno}]]</th>
-                        <td><a th:href="|@{/board/read}${pageRequestDTO.link}&bno=${dto.bno}|" class="text-decoration-none">[[${dto.title}]]</a></td>
-                        <td>[[${dto.writer}]]</td>
-                        <td>[[${#strings.substring(dto.regDate,0,10)}]]</td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <div class="float-end">
-                    <ul class="pagination flex-wrap">
-
-                        <!-- 이전 버튼 -->
+                <!-- Pagination -->
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center">
                         <li class="page-item" th:if="${responseDTO.prev}">
-                            <a class="page-link"
-                               th:href="@{/board/list(page=${responseDTO.start - 1}, size=${responseDTO.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">
-                                Previous
-                            </a>
+                            <a class="page-link" th:href="@{/board/list(page=${responseDTO.start - 1}, size=${responseDTO.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">«</a>
                         </li>
-
-                        <!-- 페이지 번호 루프 -->
                         <th:block th:each="i : ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
                             <li th:class="${responseDTO.page == i} ? 'page-item active' : 'page-item'">
-                                <a class="page-link"
-                                   th:href="@{/board/list(page=${i}, size=${responseDTO.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">
-                                    [[${i}]]
-                                </a>
+                                <a class="page-link" th:href="@{/board/list(page=${i}, size=${responseDTO.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">[[${i}]]</a>
                             </li>
                         </th:block>
-
-                        <!-- 다음 버튼 -->
                         <li class="page-item" th:if="${responseDTO.next}">
-                            <a class="page-link"
-                               th:href="@{/board/list(page=${responseDTO.end + 1}, size=${responseDTO.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">
-                                Next
-                            </a>
+                            <a class="page-link" th:href="@{/board/list(page=${responseDTO.end + 1}, size=${responseDTO.size}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">»</a>
                         </li>
-
                     </ul>
-                </div>
+                </nav>
+            </div>
+        </div>
 
-            </div><!-- end card body -->
-        </div><!-- end card -->
-    </div><!-- end col -->
-    <!-- Modal -->
-    <div class="modal" id="myModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">BNO</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-<!--                    <button type="button" class="btn btn-primary">OK</button>-->
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content rounded-3 shadow-sm">
+                    <div class="modal-header bg-light">
+                        <h5 class="modal-title">게시글 정보</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>메롱</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div><!-- end row -->
+    </div>
+</div>
 
 <script layout:fragment="script" th:inline="javascript">
     console.log("************ list ************");
 
-    document.querySelector('.clearBtn').addEventListener('click', function (e) {
-        e.preventDefault();
-        location.href = '/board/list';
-    })
+    // document.querySelector('.clearBtn').addEventListener('click', function (e) {
+    //     e.preventDefault();
+    //     location.href = '/board/list';
+    // })
 
     document.addEventListener("DOMContentLoaded", function () {
         const bno = [[${bno}]];

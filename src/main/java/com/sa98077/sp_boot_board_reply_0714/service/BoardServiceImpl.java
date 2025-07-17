@@ -2,6 +2,7 @@ package com.sa98077.sp_boot_board_reply_0714.service;
 
 import com.sa98077.sp_boot_board_reply_0714.domain.Board;
 import com.sa98077.sp_boot_board_reply_0714.dto.BoardDTO;
+import com.sa98077.sp_boot_board_reply_0714.dto.BoardListReplyCountDTO;
 import com.sa98077.sp_boot_board_reply_0714.dto.PageRequestDTO;
 import com.sa98077.sp_boot_board_reply_0714.dto.PageResponseDTO;
 import com.sa98077.sp_boot_board_reply_0714.repository.BoardRepository;
@@ -92,6 +93,34 @@ public class BoardServiceImpl implements BoardService {
                 .dtoList(dtoList)
                 .total((int) result.getTotalElements()) // 전체 개수 기준으로 총 페이지 계산
                 .build();
+
+        return pageResponseDTO;
+    }
+
+    @Override
+    public PageResponseDTO<BoardListReplyCountDTO> getListWithReplyCount(PageRequestDTO pageRequestDTO) {
+
+        // 1. 검색 조건 및 페이징 정보 설정
+        String[] types = pageRequestDTO.getTypes();
+        String keyword = pageRequestDTO.getKeyword();
+        Pageable pageable = pageRequestDTO.getPageable("bno");
+
+        // 2. 레포지토리 호출 및 결과 처리
+        Page<BoardListReplyCountDTO> result = boardRepository.searchWithReplyCount(types, keyword, pageable);
+//
+//        // list에 저장.
+//        List<BoardListReplyCountDTO> dtoList = result
+//                .map(board -> modelMapper.map(board, BoardListReplyCountDTO.class))
+//                .getContent();
+
+        // 3. PageResponseDTO 생성
+        PageResponseDTO<BoardListReplyCountDTO> pageResponseDTO = PageResponseDTO
+                .<BoardListReplyCountDTO>withAll()
+                .pageRequestDTO(pageRequestDTO)
+                .dtoList(result.getContent())
+                .total((int) result.getTotalElements()) // 전체 개수 기준으로 총 페이지 계산
+                .build();
+
         return pageResponseDTO;
     }
 }

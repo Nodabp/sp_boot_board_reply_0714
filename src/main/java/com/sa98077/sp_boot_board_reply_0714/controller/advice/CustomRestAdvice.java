@@ -1,6 +1,7 @@
 package com.sa98077.sp_boot_board_reply_0714.controller.advice;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.validation.BindException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Log4j2
 @RestControllerAdvice
@@ -30,6 +32,31 @@ public class CustomRestAdvice {
                 errorsMap.put(fieldError.getField(),fieldError.getDefaultMessage());
             });
         }
+
+        return ResponseEntity.badRequest().body(errorsMap);
+    }
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
+    public ResponseEntity<Map<String,String>> handleFKException(DataIntegrityViolationException ex){
+
+        log.error(ex);
+
+        Map<String,String> errorsMap = new HashMap<>();
+        errorsMap.put("time",String.valueOf(System.currentTimeMillis()));
+        errorsMap.put("message","constraint violation error(fail)");
+
+        return ResponseEntity.badRequest().body(errorsMap);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
+    public ResponseEntity<Map<String,String>> handleNoSuchElementException(NoSuchElementException ex){
+
+        log.error(ex);
+
+        Map<String,String> errorsMap = new HashMap<>();
+        errorsMap.put("time",String.valueOf(System.currentTimeMillis()));
+        errorsMap.put("message","NoSuchElementException error(fail)");
 
         return ResponseEntity.badRequest().body(errorsMap);
     }

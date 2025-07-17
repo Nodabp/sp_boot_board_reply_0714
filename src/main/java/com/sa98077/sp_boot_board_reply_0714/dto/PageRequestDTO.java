@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 public class PageRequestDTO {
 
     @Builder.Default //빌더로 만들 때 기본값으로 사용하라~
-    private int page = 0;
+    private int page = 1;
 
     @Builder.Default
     private int size = 10;
@@ -36,7 +36,7 @@ public class PageRequestDTO {
     }
 
     public Pageable getPageable(String... props) {
-        return PageRequest.of(page, size, Sort.by(props).descending());
+        return PageRequest.of(page - 1, size, Sort.by(props).descending());
     }
 
     //    public String getLink() {

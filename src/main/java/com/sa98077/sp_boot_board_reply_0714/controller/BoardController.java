@@ -2,10 +2,10 @@ package com.sa98077.sp_boot_board_reply_0714.controller;
 
 
 import com.sa98077.sp_boot_board_reply_0714.dto.BoardDTO;
+import com.sa98077.sp_boot_board_reply_0714.dto.BoardListReplyCountDTO;
 import com.sa98077.sp_boot_board_reply_0714.dto.PageRequestDTO;
 import com.sa98077.sp_boot_board_reply_0714.dto.PageResponseDTO;
 import com.sa98077.sp_boot_board_reply_0714.service.BoardService;
-import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,12 +24,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class BoardController {
     private final BoardService boardService;
 
+    @GetMapping("/dash")
+    public void dash() {
+        log.info("************** dash *************");
+    }
+
+
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO,
                      Model model) {
         log.info("************** list *************");
 
-        PageResponseDTO<BoardDTO> pageResponseDTO = boardService.getList(pageRequestDTO);
+        PageResponseDTO<BoardListReplyCountDTO> pageResponseDTO = boardService.getListWithReplyCount(pageRequestDTO);
 
         log.info("pageResponseDTO : {}", pageResponseDTO);
         log.info("pageRequestDTO : {}", pageRequestDTO);
