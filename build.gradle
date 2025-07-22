@@ -55,6 +55,9 @@ dependencies {
 
     /* openapi webmvc */
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
+
+    /* Thumbnailator 0.4.20*/
+    implementation 'net.coobird:thumbnailator:0.4.20'
 }
 
 tasks.named('test') {

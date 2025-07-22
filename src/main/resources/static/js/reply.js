@@ -1,3 +1,5 @@
+
+// // 테스트용 코드
 // async function getOne(bno) { // 비동기 처리를 위한 함수 선언 ~~
 //     console.log(bno);
 //     // const result = await axios.get(`/api/replies/list/{${bno}}`); // axios 방식으로
@@ -10,7 +12,7 @@
 // }
 
 async function getList(bno, page, size, goLast) {
-    axios.defaults.baseURL = 'http://localhost:8080';
+    // axios.defaults.baseURL = 'http://localhost:8080';
     const result = await axios.get(`/api/replies/list/${bno}`, {
         params: {page, size}
     });
@@ -27,14 +29,14 @@ async function getList(bno, page, size, goLast) {
 
 // 등록
 async function addReply(obj) {
-    axios.defaults.baseURL = 'http://localhost:8080';
+    // axios.defaults.baseURL = 'http://localhost:8080';
     const response = await axios.post('/api/replies/', obj);
     return response;
 }
 
 // 조회
 async function getReply(rno) {
-    axios.defaults.baseURL = 'http://localhost:8080';
+    // axios.defaults.baseURL = 'http://localhost:8080';
     const response = await axios.get(`/api/replies/${rno}`);
     return response.data;
 }
@@ -43,7 +45,17 @@ async function getReply(rno) {
 // 수정
 
 async function modifyReply(obj) {
-    axios.defaults.baseURL = 'http://localhost:8080';
-    const response = await axios.put(`/api/replies/${obj.rno}`,obj);
+    // axios.defaults.baseURL = 'http://localhost:8080';
+
+    const response = await axios.put(`/api/replies/${obj.rno}`, obj);
+
+    return response.data;
+}
+
+// 삭제
+
+async function removeReply(rno) {
+    // axios.defaults.baseURL = 'http://localhost:8080';
+    const response = await axios.delete(`/api/replies/${rno}`);
     return response.data;
 }

@@ -5,48 +5,34 @@
 <head>
     <meta charset="UTF-8">
     <title>read</title>
-    <style>
-        .card {
-            border-radius: 0.5rem;
-            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-        }
-        .modal-content {
-            border-radius: 0.5rem;
-            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
-        }
-        .form-control-sm {
-            font-size: 0.875rem;
-        }
-        .btn-sm {
-            font-size: 0.8rem;
-            padding: 0.35rem 0.75rem;
-        }
-        .replyList .list-group-item {
-            padding: 0.5rem 1rem;
-        }
-    </style>
-
 </head>
 
 <body>
 <div layout:fragment="content">
     <div class="container py-4">
-        <div class="card">
-            <div class="card-header fw-bold bg-light">📄 Board Info</div>
+        <div class="card shadow-sm">
+            <div class="card-header bg-light fw-bold">
+                📄🤣🤣🤣🤣💀 Read
+            </div>
             <div class="card-body">
-                <div class="row mb-3 gx-3">
-                    <div class="col-sm-4">Writer: [[${dto.writer}]]</div>
-                    <div class="col-sm-4">Reg Date: [[${#strings.substring(dto.regDate,0,10)}]]</div>
-                    <div class="col-sm-4">Mod Date: [[${#strings.substring(dto.modDate,0,10)}]]</div>
+                <h5 class="card-title mb-4">Board Info</h5>
+
+                <!-- Writer / RegDate / ModDate -->
+                <div class="card-body col-sm-5 d-flex">
+                    <div class="col-5">Writer : [[${dto.writer}]]</div>
+                    <div class="col-5">regDate : [[${#strings.substring(dto.regDate,0,10)}]]</div>
+                    <div class="col-5">modDate : [[${#strings.substring(dto.modDate,0,10)}]]</div>
                 </div>
 
-                <div class="mb-3 row align-items-center">
+                <!-- Title -->
+                <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label text-end">Title</label>
                     <div class="col-sm-10">
                         <input type="text" name="title" class="form-control" th:value="${dto.title}" readonly>
                     </div>
                 </div>
 
+                <!-- Content -->
                 <div class="mb-3 row">
                     <label class="col-sm-2 col-form-label text-end">Content</label>
                     <div class="col-sm-10">
@@ -54,82 +40,108 @@
                     </div>
                 </div>
 
-                <div class="text-end">
-                    <a th:href="|@{/board/modify}${pageRequestDTO.link}&bno=${dto.bno}|" class="btn btn-primary btn-sm me-2">Modify</a>
-                    <a th:href="|@{/board/list}?${pageRequestDTO.link}|" class="btn btn-outline-secondary btn-sm">List</a>
+
+                <div class="row mb-3 d-flex justify-content-between">
+                    <!-- Action Buttons -->
+                    <div class="mt-4 text-end">
+                        <a th:href="|@{/board/modify}${pageRequestDTO.link}&bno=${dto.bno}|"
+                           class="btn btn-primary me-2">Modify</a>
+                        <a th:href="|@{/board/list}?${pageRequestDTO.link}|" class="btn btn-outline-secondary">List</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 댓글 섹션 -->
-        <div class="card mt-4">
-            <div class="card-header bg-light fw-bold">💬 Comments</div>
-            <div class="card-body">
-                <div class="text-end mb-3">
-                    <button class="btn btn-info btn-sm addReplyBtn">ADD REPLY</button>
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script src="/js/reply.js"></script>
+
+            <!--            &lt;!&ndash; Comment Section Placeholder &ndash;&gt;-->
+            <!--            <div class="card mt-4 shadow-sm">-->
+            <!--                <div class="card-header bg-light fw-bold">-->
+            <!--                    💬 Comments-->
+            <!--                </div>-->
+            <!--                <div class="card-body">-->
+            <!--                    &lt;!&ndash; 댓글 목록 및 입력 폼이 여기에 추가될 예정 &ndash;&gt;-->
+            <!--                    <p class="text-muted">댓글 기능은 추후 여기에 추가됩니다.</p>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <div class="card mt-4 shadow-sm">
+                <h6>여기</h6>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="my-4">
+                            <!-- 댓글 작성 버튼 -->
+                            <button class="btn btn-info addReplyBtn">ADD REPLY</button>
+                        </div>
+                        <!-- 댓글 목록 -->
+                        <ul class="list-group replyList">
+
+                        </ul>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <!-- 댓글 목록 페이징 -->
+                            <ul class="pagination replyPaging">
+
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
-                <ul class="list-group replyList list-group-flush mb-3"></ul>
+                <!-- register modal -->
+                <div class="modal registerModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Register Reply</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Reply Text</span>
+                                    <input type="text" class="form-control replyText">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Reply Writer</span>
+                                    <input type="text" class="form-control replyWriter">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary registerBtn">Register</button>
+                                <button type="button" class="btn btn-outline-dark closeRegisterBtn">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- register modal -->
 
-                <nav>
-                    <ul class="pagination replyPaging justify-content-center mb-0"></ul>
-                </nav>
+                <!-- modify modal -->
+                <div class="modal modifyModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title replyHeader"></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Reply Text</span>
+                                    <input type="text" class="form-control modifyText">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info modifyBtn">Modify</button>
+                                <button type="button" class="btn btn-danger removeBtn">Remove</button>
+                                <button type="button" class="btn btn-outline-dark closeModifyBtn">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // modify modal -->
+
             </div>
         </div>
     </div>
-
-    <!-- Register Modal -->
-    <div class="modal registerModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Register Reply</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group mb-2">
-                        <span class="input-group-text">Reply Text</span>
-                        <input type="text" class="form-control form-control-sm replyText">
-                    </div>
-                    <div class="input-group mb-2">
-                        <span class="input-group-text">Reply Writer</span>
-                        <input type="text" class="form-control form-control-sm replyWriter">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-sm registerBtn">Register</button>
-                    <button type="button" class="btn btn-outline-dark btn-sm closeRegisterBtn">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modify Modal -->
-    <div class="modal modifyModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title replyHeader"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group mb-2">
-                        <span class="input-group-text">Reply Text</span>
-                        <input type="text" class="form-control form-control-sm modifyText">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-info btn-sm modifyBtn">Modify</button>
-                    <button type="button" class="btn btn-danger btn-sm removeBtn">Remove</button>
-                    <button type="button" class="btn btn-outline-dark btn-sm closeModifyBtn">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/js/reply.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </div>
 
 <script layout:fragment="script" th:inline="javascript">
